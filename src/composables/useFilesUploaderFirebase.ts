@@ -27,7 +27,7 @@ function useFilesUploaderFirebase() {
         })
       }
     } catch (e) {
-      alert('Ошибка при загрузке файла')
+      alert('Error uploading file')
       console.log(e)
     } finally {
       filesStore.loading = false

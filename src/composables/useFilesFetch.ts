@@ -10,6 +10,9 @@ async function useFilesFetch() {
     const fetched = await fetchFilesFromFirebase()
     filesStore.setFiles(fetched)
     return fetched
+  } catch (e) {
+    alert('Error getting file list')
+    console.log(e)
   } finally {
     filesStore.loading = false
   }

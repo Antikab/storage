@@ -20,7 +20,7 @@ function useFileDelete() {
         router.replace({ name: 'home' })
       }
     } catch (e) {
-      alert('Ошибка при удалении файла')
+      alert('Error deleting file')
       console.log(e)
     } finally {
       deletingId.value = null
