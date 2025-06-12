@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useFilesStore } from '@/stores/files'
+import { useFilesFetch } from '@/composables/useFilesFetch'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,9 +9,8 @@ const router = createRouter({
       name: 'home',
       component: () => import('@/components/UploadForm.vue'),
       async beforeEnter() {
-        const filesStore = useFilesStore()
         try {
-          const files = await filesStore.fetchFilesIfNeeded()
+          const files = await useFilesFetch()
           if (files.length > 0) {
             return { name: 'files' }
           }
@@ -25,9 +24,8 @@ const router = createRouter({
       name: 'files',
       component: () => import('@/components/FilesList.vue'),
       async beforeEnter() {
-        const filesStore = useFilesStore()
         try {
-          const files = await filesStore.fetchFilesIfNeeded()
+          const files = await useFilesFetch()
           if (files.length === 0) {
             return { name: 'home' }
           }

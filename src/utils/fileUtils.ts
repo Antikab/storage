@@ -2,9 +2,14 @@
 import IconDefault from '/icons/icon-file.svg'
 import IconImage from '/icons/icon-image.svg'
 
-// Преобразует строку даты (ISO) в локальный формат "дата и время"
+// Преобразует дату
 function formatDate(date?: string): string {
-  return date ? new Date(date).toLocaleString() : '—'
+  if (!date) return '—'
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  }).format(new Date(date))
 }
 
 // Форматирует размер файла в удобный вид: B, KB, MB или GB

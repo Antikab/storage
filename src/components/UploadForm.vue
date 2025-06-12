@@ -38,14 +38,14 @@ const filesStore = useFilesStore()
             :src="iconUploadDnd"
             class="absolute inset-0 transition-opacity duration-400"
             :class="isDragOver ? 'opacity-0' : 'opacity-100'"
-            aria-label="Драг обычная"
+            aria-label="icon upload dnd"
             role="img"
           />
           <inline-svg
             :src="iconUploadDndActive"
             class="absolute inset-0 transition-opacity duration-400"
             :class="isDragOver ? 'opacity-100' : 'opacity-0'"
-            aria-label="Драг активная"
+            aria-label="icon upload dnd"
             role="img"
           />
         </div>
