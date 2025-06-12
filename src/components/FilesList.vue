@@ -19,13 +19,9 @@ const { inputRef, openFileDialog, onFileChange } = useFileUpload(uploadFiles)
       <input ref="inputRef" type="file" multiple class="hidden" @change="onFileChange" />
     </div>
 
-    <div v-if="filesStore.loading" class="text-gray-400 text-center py-8">Загрузка...</div>
-    <template v-else>
-      <FileRow />
-    </template>
-
-    <div v-if="!filesStore.files.length" class="py-10 text-center text-lg">
-      No files uploaded yet
+    <div v-if="filesStore.loading" class="text-gray-400 text-center py-8">
+      Loading files, please wait...
     </div>
+    <FileRow v-else />
   </div>
 </template>

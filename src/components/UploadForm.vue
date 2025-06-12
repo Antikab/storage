@@ -25,7 +25,9 @@ const filesStore = useFilesStore()
 
     <div class="w-full mb-10 border-b border-b-light-gray-color"></div>
 
-    <div v-if="filesStore.loading || filesStore.files.length">Загрузка...</div>
+    <div v-if="filesStore.loading || filesStore.files.length">
+      Uploading files to storage, please wait...
+    </div>
     <div v-else class="w-[352px] flex flex-col gap-6">
       <div
         class="flex flex-col gap-4 text-center"

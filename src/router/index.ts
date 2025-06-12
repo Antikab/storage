@@ -1,5 +1,7 @@
+// src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router'
 import { useFilesFetch } from '@/composables/useFilesFetch'
+import { useFilesStore } from '@/stores/files'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,35 +9,28 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/components/UploadForm.vue'),
-      async beforeEnter() {
-        try {
-          const files = await useFilesFetch()
-          if (files.length > 0) {
-            return { name: 'files' }
-          }
-        } catch (error) {
-          console.error('Ошибка проверки наличия файлов:', error)
-        }
-      }
+      component: () => import('@/components/UploadForm.vue')
     },
     {
       path: '/files',
       name: 'files',
-      component: () => import('@/components/FilesList.vue'),
-      async beforeEnter() {
-        try {
-          const files = await useFilesFetch()
-          if (files.length === 0) {
-            return { name: 'home' }
-          }
-        } catch (error) {
-          console.error('Ошибка при получении списка файлов из Firebase:', error)
-          return { name: 'home' }
-        }
-      }
+      component: () => import('@/components/FilesList.vue')
     }
   ]
+})
+
+router.beforeEach(async (to) => {
+  const filesStore = useFilesStore()
+
+  if ((to.name === 'home' || to.name === 'files') && !filesStore.files.length) {
+    await useFilesFetch()
+  }
+  if (to.name === 'home' && filesStore.files.length) {
+    return { name: 'files' }
+  }
+  if (to.name === 'files' && !filesStore.files.length) {
+    return { name: 'home' }
+  }
 })
 
 export default router
