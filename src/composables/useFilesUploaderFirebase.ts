@@ -1,6 +1,4 @@
-// src/composables/useFilesUploaderFirebase.ts
-// composable для загрузки файлов в Firebase Storage и обновления Pinia store.
-
+// useFilesUploaderFirebase - загружает выбранные файлы в Firebase Storage, получает их URL и сохраняет информацию о них в Pinia.
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 import { useFilesStore } from '@/stores/files'

@@ -1,4 +1,3 @@
-// fileUtils
 import IconDefault from '/icons/icon-file.svg'
 import IconImage from '/icons/icon-image.svg'
 

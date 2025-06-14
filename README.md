@@ -1,39 +1,45 @@
-# uploading-files
+# storage
 
-This template should help get you started developing with Vue 3 in Vite.
+Минималистичное Vue 3 приложение для загрузки и управления файлами в Firebase Storage.
 
-## Recommended IDE Setup
+[**➡️ Посмотреть демо**](https://storage-beige.vercel.app/)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Технологии
 
-## Type Support for `.vue` Imports in TS
+- Vue 3 + Vite
+- Pinia и Vue Router
+- Tailwind CSS, vue-inline-svg
+- Firebase Storage
+- TypeScript, ESLint, Prettier
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Возможности
 
-## Customize configuration
+- Drag'n'drop и диалог выбора файлов
+- Список с именем, размером и датой загрузки
+- Скачивание и удаление файлов
+- Состояние хранится в Pinia
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Установка
 
-## Project Setup
+1. `yarn`
+2. Создайте `.env` и пропишите ключи Firebase:
 
-```sh
-yarn
+```bash
+VITE_FIREBASE_API_KEY=...
+VITE_FIREBASE_AUTH_DOMAIN=...
+VITE_FIREBASE_PROJECT_ID=...
+VITE_FIREBASE_STORAGE_BUCKET=...
+VITE_FIREBASE_MESSAGING_SENDER_ID=...
+VITE_FIREBASE_APP_ID=...
 ```
 
-### Compile and Hot-Reload for Development
+## Запуск
 
-```sh
-yarn dev
+```bash
+yarn dev       # разработка
+yarn build     # сборка
+yarn preview   # просмотр
+yarn lint      # линтинг
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-yarn build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-yarn lint
-```
+Проект разделён на компоненты и composables для удобной поддержки.

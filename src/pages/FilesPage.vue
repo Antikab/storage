@@ -1,4 +1,3 @@
-<!-- FilesList.vue -->
 <script setup lang="ts">
 import BtnUpload from '@/components/BtnUpload.vue'
 import FileRow from '@/components/FileRow.vue'

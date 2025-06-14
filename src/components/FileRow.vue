@@ -1,13 +1,10 @@
-<!-- FileRowDesktop -->
 <script setup lang="ts">
-import FileIcon from '@/components/FileIcon.vue'
 import { formatDate, formatSize, getFileIcon } from '@/utils/fileUtils'
 import { useFilesStore } from '@/stores/files'
-// import { useFileDelete } from '@/composables/useFileDelete'
+import FileIcon from '@/components/FileIcon.vue'
 import BtnMenu from '@/components/BtnMenu.vue'
 
 const filesStore = useFilesStore()
-// const { deletingId, deleteFile } = useFileDelete()
 </script>
 
 <template>
@@ -50,27 +47,6 @@ const filesStore = useFilesStore()
             <div class="px-6 py-4 text-sm text-nowrap">{{ formatDate(file.date) }}</div>
           </div>
         </div>
-        <!-- <div class="flex flex-col items-start justify-center gap-2 text-sm pr-6 pb-4 lg:p-0">
-          <a
-            :href="file.url"
-            target="_blank"
-            class="text-primary-color-hover hover:text-primary-color active:text-primary-color"
-          >
-            Download
-          </a>
-          <button
-            :class="[
-              'font-medium transition',
-              deletingId === file.id
-                ? 'cursor-not-allowed'
-                : 'text-rose-400 hover:text-rose-600 active:text-rose-600'
-            ]"
-            @click="deleteFile(file.id)"
-            :disabled="deletingId === file.id"
-          >
-            {{ deletingId === file.id ? 'Deleting...' : 'Delete' }}
-          </button>
-        </div> -->
         <BtnMenu :file="file" />
       </div>
     </div>

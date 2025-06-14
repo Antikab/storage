@@ -1,5 +1,4 @@
-// fetchFilesFromFirebase
-// Утилита для получения файлов из Firebase Storage.
+// Утилита для получения файлов из Firebase Storage
 import { ref as storageRef, listAll, getDownloadURL, getMetadata } from 'firebase/storage'
 
 import type { UploadedFile } from '@/types'

@@ -1,5 +1,4 @@
-// src/composables/useFileUpload.ts
-// composable для кастомной и drag'n'drop загрузки файлов через input и drop zone.
+// Файл useFileUpload.ts реализует логику drag’n’drop и открытия диалога выбора файлов с передачей выбранных файлов в функцию загрузки.
 import { ref } from 'vue'
 
 function useFileUpload(uploadFiles: (files: FileList | null) => void) {

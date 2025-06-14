@@ -1,4 +1,4 @@
-// src/composables/useFilesFetch.ts
+// useFilesFetch - загружает список файлов из Firebase Storage и сохраняет его в Pinia, если он ещё не был загружен.
 import { useFilesStore } from '@/stores/files'
 import { fetchFilesFromFirebase } from '@/utils/fetchFilesFromFirebase'
 

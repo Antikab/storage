@@ -1,4 +1,4 @@
-// src/composables/useFileDelete.ts
+// useFileDelete.ts - реализует удаление файла из Firebase Storage с обновлением состояния в Pinia и перенаправлением на главную, если файлов больше нет.
 import { ref as vueRef } from 'vue'
 import { ref as storageRef, deleteObject } from 'firebase/storage'
 import { useFilesStore } from '@/stores/files'

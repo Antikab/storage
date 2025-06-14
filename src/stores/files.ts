@@ -1,4 +1,3 @@
-// files.ts
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { UploadedFile } from '@/types'
