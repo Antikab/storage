@@ -68,7 +68,7 @@ const filesStore = useFilesStore()
             </p>
           </div>
         </div>
-        <BtnUpload class="w-full" @click="openFileDialog" />
+        <BtnUpload class="w-full lg:mb-10" @click="openFileDialog" />
         <input ref="inputRef" type="file" multiple class="hidden" @change="onFileChange" />
       </div>
     </div>
