@@ -1,5 +1,6 @@
 import IconDefault from '/icons/icon-file.svg'
 import IconImage from '/icons/icon-image.svg'
+import IconPdf from '/icons/icon-pdf.svg'
 import IconVideo from '/icons/icon-video.svg'
 import IconAudio from '/icons/icon-audio.svg'
 import IconText from '/icons/icon-text.svg'
@@ -29,71 +30,80 @@ function formatSize(size?: number): string {
 
 // Возвращает иконку для файла по его MIME-типу или расширению
 function getFileIcon(file: { name: string; type?: string }) {
-  // 1. Проверяем MIME-тип (contentType) — это надёжнее
-  if (file.type) {
-    if (file.type.startsWith('image/')) return IconImage // Картинка
-    if (file.type.startsWith('video/')) return IconVideo // Видео
-    if (file.type.startsWith('audio/')) return IconAudio // Аудио
-    if (file.type === 'application/pdf') return IconDesign // PDF
-    if (
-      file.type === 'application/msword' ||
-      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    )
-      return IconText // Word
-    if (
-      file.type === 'application/vnd.ms-excel' ||
-      file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    )
-      return IconText // Excel
-    if (
-      file.type === 'application/vnd.ms-powerpoint' ||
-      file.type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-    )
-      return IconDesign // PowerPoint
-    if (
-      file.type === 'application/zip' ||
-      file.type === 'application/x-rar-compressed' ||
-      file.type === 'application/x-7z-compressed' ||
-      file.type === 'application/x-tar' ||
-      file.type === 'application/gzip'
-    )
-      return IconArch // Архив
-    // Дизайн-файлы (figma, psd и др)
-    if (
-      file.type === 'application/vnd.figma.document' ||
-      (file.type === 'application/octet-stream' && /\.(framerx)$/i.test(file.name))
-    )
-      return IconFram // Дизайн framerx
-    if (
-      file.type === 'application/vnd.figma.document' ||
-      (file.type === 'application/octet-stream' && /\.(fig)$/i.test(file.name))
-    )
-      return IconFig // Дизайн фигма
-    if (
-      file.type === 'application/vnd.figma.document' ||
-      (file.type === 'application/octet-stream' && /\.(sketch|psd|xd|ai)$/i.test(file.name))
-    )
-      return IconDesign // Дизайн
-    if (file.type === 'application/json' || file.type === 'application/xml') return IconText // Данные
-    if (file.type === 'text/plain' || file.type === 'text/csv') return IconText // Текст
-  }
-
-  // 2. Если тип не помог — проверяем расширение
   const ext = file.name.slice(file.name.lastIndexOf('.') + 1).toLowerCase()
-  if (/\.(jpg|jpeg|png|webp|gif|svg|bmp|tiff)$/i.test(ext)) return IconImage // Картинка
-  if (/\.(mp4|mov|avi|webm|mkv|mpeg)$/i.test(ext)) return IconVideo // Видео
-  if (/\.(mp3|wav|ogg)$/i.test(ext)) return IconAudio // Аудио
-  if (/\.(zip|rar|7z|tar|gz)$/i.test(ext)) return IconArch // Архив
-  if (/\.(sketch|psd|xd|ai)$/i.test(ext)) return IconDesign // Дизайн
-  if (/\.(fig)$/i.test(ext)) return IconFig // Дизайн фигма
-  if (/\.(framerx)$/i.test(ext)) return IconFram // Дизайн framerx
-  if (/\.(csv|json|xml)$/i.test(ext)) return IconText // Данные
-  if (/\.(txt|rtf)$/i.test(ext)) return IconText // Текст
-  if (/\.(pdf)$/i.test(ext)) return IconDesign // PDF
-  if (/\.(doc|docx)$/i.test(ext)) return IconText // Word
-  if (/\.(xls|xlsx)$/i.test(ext)) return IconText // Excel
-  if (/\.(ppt|pptx)$/i.test(ext)) return IconDesign // PowerPoint
-  // 3. Если ничего не подошло — папка/файл по умолчанию
+  const name = file.name.toLowerCase()
+  const type = file.type || ''
+  const isFigmaType = type === 'application/vnd.figma.document'
+  // 1. По MIME-типу
+  if (type.startsWith('image/')) return IconImage
+  if (type.startsWith('video/')) return IconVideo
+  if (type.startsWith('audio/')) return IconAudio
+  if (type === 'application/pdf') return IconPdf
+
+  if (
+    type === 'application/msword' ||
+    type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  )
+    return IconText
+
+  if (
+    type === 'application/vnd.ms-excel' ||
+    type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  )
+    return IconText
+
+  if (
+    type === 'application/vnd.ms-powerpoint' ||
+    type === 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+  )
+    return IconDesign
+
+  if (
+    [
+      'application/zip',
+      'application/x-rar-compressed',
+      'application/x-7z-compressed',
+      'application/x-tar',
+      'application/gzip'
+    ].includes(type)
+  )
+    return IconArch
+
+  // Figma, Framer, Sketch и др.
+  if (
+    type === 'application/x-figma' ||
+    isFigmaType ||
+    (type === 'application/octet-stream' && name.endsWith('.fig'))
+  )
+    return IconFig
+
+  if (type === 'application/octet-stream' && name.endsWith('.framerx')) return IconFram
+
+  if (isFigmaType || (type === 'application/octet-stream' && /\.(sketch|psd|xd|ai)$/.test(name)))
+    return IconDesign
+
+  if (
+    ['application/json', 'application/xml'].includes(type) ||
+    ['text/plain', 'text/csv'].includes(type)
+  )
+    return IconText
+
+  // 2. По расширению
+  if (['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg', 'bmp', 'tiff'].includes(ext)) return IconImage
+  if (['mp4', 'mov', 'avi', 'webm', 'mkv', 'mpeg'].includes(ext)) return IconVideo
+  if (['mp3', 'wav', 'ogg'].includes(ext)) return IconAudio
+  if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) return IconArch
+  if (['sketch', 'psd', 'xd', 'ai'].includes(ext)) return IconDesign
+  if (ext === 'fig') return IconFig
+  if (ext === 'framerx') return IconFram
+  if (['csv', 'json', 'xml'].includes(ext)) return IconText
+  if (['txt', 'rtf'].includes(ext)) return IconText
+  if (ext === 'pdf') return IconPdf
+  if (['doc', 'docx'].includes(ext)) return IconText
+  if (['xls', 'xlsx'].includes(ext)) return IconText
+  if (['ppt', 'pptx'].includes(ext)) return IconDesign
+
+  // 3. По умолчанию
   return IconDefault
 }
 
